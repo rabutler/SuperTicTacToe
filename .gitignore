@@ -1,3 +1,10 @@
+# saved game files
+board.csv
+boardprev.csv
+majMatprev.csv
+numsPlayed.csv
+numsPlayedprev.csv
+
 # R project files
 *.Rproj.user
 .RData
