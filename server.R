@@ -9,7 +9,6 @@ library(shiny)
 source('drawBoard.R')
 source('modifyBoard.R')
 source('compFunctions.R')
-source('shinyFunctions.R')
 
 # Make the board a global variable so that it can always be modified and accessed
 board <<- drawOriginalBoard()$board
