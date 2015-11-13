@@ -147,7 +147,7 @@ isAcceptableText <- function(uI)
   }
 }
 
-checkUserInput <- function(uI, board)
+checkUserInput <- function(uI)
 {
   
   # is it a numeric between 1 and 81

@@ -13,6 +13,7 @@ source('compFunctions.R')
 # Make the board a global variable so that it can always be modified and accessed
 board <<- drawOriginalBoard()$board
 prevBoard <<- board
+errorCode <<- 0
 
 shinyServer(function(input, output) {
 
@@ -39,7 +40,8 @@ shinyServer(function(input, output) {
       
       # check if input and move are valid. If they are, then update board. Otherwise,
       # print warning message, and allow for them to input move again.
-      if(checkUserInput(uI, board) == 0){
+      errorCode <<- checkUserInput(uI) 
+      if(errorCode == 0){
         # move is valid, so can update the board
         #- saveBoard(board,'prev')
         prevBoard <<- board
@@ -75,10 +77,11 @@ shinyServer(function(input, output) {
       
       #- board <- getBoard('prev')
       #- error <- checkUserInput(uI, board)
-      error <- checkUserInput(uI, prevBoard)
+      #-- error <- checkUserInput(uI, prevBoard)
       
-      if(error != 0){
-        errorMessage(error)
+      
+      if(errorCode != 0){
+        errorMessage(errorCode)
       } else{
         paste('last move was: ', uI)
       }
