@@ -13,17 +13,23 @@ source('compFunctions.R')
 # Make the board a global variable so that it can always be modified and accessed
 board <<- drawOriginalBoard()$board
 prevBoard <<- board
-errorCode <<- 0
 
 shinyServer(function(input, output) {
-
+  errorCode <- eventReactive(input$cellNum,{
+    if(input$cellNum == 'ng'){
+      return('ng')
+    } else {
+      return(checkUserInput(as.numeric(input$cellNum)))
+    }
+  })
+  
   output$board <- renderPlot({
 
     #x <- input$cellNum
     #zz <- drawOriginalBoard()
     #viz <- zz$plot + annotate('text',label = x, x=8,y=8,size = 30)
     #print(viz)
-    if(input$cellNum == 'ng'){
+    if(errorCode() == 'ng'){
       zz <- drawOriginalBoard()
       viz <- zz$plot
       print(viz)
@@ -40,8 +46,8 @@ shinyServer(function(input, output) {
       
       # check if input and move are valid. If they are, then update board. Otherwise,
       # print warning message, and allow for them to input move again.
-      errorCode <<- checkUserInput(uI) 
-      if(errorCode == 0){
+      #- errorCode <<- checkUserInput(uI) 
+      if(errorCode() == 0){
         # move is valid, so can update the board
         #- saveBoard(board,'prev')
         prevBoard <<- board
@@ -80,8 +86,8 @@ shinyServer(function(input, output) {
       #-- error <- checkUserInput(uI, prevBoard)
       
       
-      if(errorCode != 0){
-        errorMessage(errorCode)
+      if(errorCode() != 0){
+        errorMessage(errorCode())
       } else{
         paste('last move was: ', uI)
       }
