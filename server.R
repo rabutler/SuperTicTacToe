@@ -5,6 +5,14 @@
 # http://shiny.rstudio.com
 #
 
+# *** TO DO:
+# - if you put in a cell number and hit submit before clicking new game, it weirdly 
+#   starts with player 2
+# - change text input to numeric input and get rid of all the as.numerics and error
+#   checking on letters
+# - do not allow moves once game has been won.
+
+
 library(shiny)
 source('drawBoard.R')
 source('modifyBoard.R')
@@ -47,8 +55,11 @@ shinyServer(function(input, output) {
       board$winner <<- winner
       
       pp <- ifelse(pp==1, 2, 1)
-      errorCode$data$text <- paste('Last move was:',uI,'<br/>Player',pp,'it is now your turn.')
-      
+      if(winner == ''){
+        errorCode$data$text <- paste('Last move was:',uI,'<br/>Player',pp,'it is now your turn.')
+      } else{
+        errorCode$data$text <- winner
+      }
     } else {
       # move is invalid for some reason, so set the error text accordingly
       errorCode$data$text <- errorMessage(errorCode$data$code)

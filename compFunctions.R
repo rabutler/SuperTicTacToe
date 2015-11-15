@@ -159,6 +159,8 @@ checkUserInput <- function(uI)
     return(7)
   } else if(!is.na(uI) & tolower(uI) == 'ng'){
     return(0)
+  } else if(board$winner != ''){
+    return(8)
   } else if(is.na(uI)){
     return(1)
   } else if(uI < 1 | uI > 81){
@@ -177,6 +179,6 @@ errorMessage <- function(ii)
   em <- c('Input was not numeric','Input was a number beyond the allowable values',
           'Cell has already been played', 'Cell is not in correct board',
           'Board was saved', 'Reverted back to the previous play.',
-          'Undo was cancelled.')
+          'Undo was cancelled.', 'Game is over. <br/> Select \'New Game\' to play again.')
   em[ii]
 }
