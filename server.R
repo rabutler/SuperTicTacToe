@@ -15,83 +15,67 @@ board <<- drawOriginalBoard()$board
 prevBoard <<- board
 
 shinyServer(function(input, output) {
-  errorCode <- eventReactive(input$cellNum,{
-    if(input$cellNum == 'ng'){
-      return('ng')
-    } else {
-      return(checkUserInput(as.numeric(input$cellNum)))
-    }
+
+  errorCode <- reactiveValues(data = NULL)
+  
+  observeEvent(input$newGame, {
+    errorCode$data$code <- 'ng'
+    errorCode$data$text <- 'New game. Good luck.'
+    board <<- drawOriginalBoard()$board
+    board$nums <<- -1
   })
   
-  output$board <- renderPlot({
-
-    #x <- input$cellNum
-    #zz <- drawOriginalBoard()
-    #viz <- zz$plot + annotate('text',label = x, x=8,y=8,size = 30)
-    #print(viz)
-    if(errorCode() == 'ng'){
-      zz <- drawOriginalBoard()
-      viz <- zz$plot
-      print(viz)
-      #- board <- zz$board
-      board$nums <<- -1
-      #- saveBoard(board)
-    } else{
-      #- board <- getBoard()
-      #print(drawBoard(board$board) + annotate('text', label = input$cellNum, x = 8, y = 8, size = 30))
+  observeEvent(input$submitMove, {
+    errorCode$data$code <- checkUserInput(as.numeric(input$cellNum))
+    if(errorCode$data$code == 0){
+      # move is valid, so update board accordingly
       uI <- as.numeric(input$cellNum)
+      prevBoard <<- board
       
-      # *** will need more robust determination of this when implementing undo,
-      # *** or can have the undo remove the last move from the list!!
+      if(length(board$nums) %% 2 == 0){pp <- 2} else {pp <- 1} 
       
-      # check if input and move are valid. If they are, then update board. Otherwise,
-      # print warning message, and allow for them to input move again.
-      #- errorCode <<- checkUserInput(uI) 
-      if(errorCode() == 0){
-        # move is valid, so can update the board
-        #- saveBoard(board,'prev')
-        prevBoard <<- board
-        if(length(board$nums) %% 2 == 0){pp <- 2} else {pp <- 1} 
-        board <<- modifyBoard(board, uI, pp)
-        
-        if(checkWin(board$majMat,pp)){
-          winner <- paste('Player',pp,'Wins!!')
-        } else if(checkCats(board$majMat)){
-          winner <- 'Cats...'
-        } else {
-          winner <- ''
-        }
-        
-        print(drawBoard(board$board) + annotate('text',label = winner, x = 8, y = 8, 
-                                                size = 30))
-        
-        #- saveBoard(board)
-      } else{
-        # but still need to print the board so it can be seen for next move
-        print(drawBoard(board$board))
+      board <<- modifyBoard(board, uI, pp)
+      
+      if(checkWin(board$majMat,pp)){
+        winner <- paste('Player',pp,'Wins!!')
+      } else if(checkCats(board$majMat)){
+        winner <- 'Cats...'
+      } else {
+        winner <- ''
       }
-    }    
+      
+      board$winner <<- winner
+      
+      errorCode$data$text <- paste('Las move was:',uI)
+      
+    } else {
+      # move is invalid for some reason, so set the error text accordingly
+      errorCode$data$text <- errorMessage(errorCode$data$code)
+    }
+    
+  })
+#   undoMove <- eventReactive(isolate(input$undoMove), {
+#     # check to see if undo is possible, since now we only allow one undo
+#     if(board$allowUndo){
+#       return(0)
+#     } else{
+#       return(1)
+#     }
+#   })
+  
+  output$board <- renderPlot({
+    
+    if(is.null(errorCode$data)) return()
+    
+    print(drawBoard(board$board) + annotate('text',label = board$winner, x = 8, y = 8, 
+                                                size = 30))  
     
   })
   
   output$message <- renderText ({
-    uI <- input$cellNum
-    if(tolower(uI) == 'ng'){
-      paste('New game started')
-    } else {
-      uI <- as.numeric(uI)
-      
-      #- board <- getBoard('prev')
-      #- error <- checkUserInput(uI, board)
-      #-- error <- checkUserInput(uI, prevBoard)
-      
-      
-      if(errorCode() != 0){
-        errorMessage(errorCode())
-      } else{
-        paste('last move was: ', uI)
-      }
-    }
+    if(is.null(errorCode$data)) return()
+    
+    errorCode$data$text
   })
 
 })

@@ -15,10 +15,9 @@ shinyUI(fluidPage(
   # text input of the next move
   sidebarLayout(
     sidebarPanel(
-      textInput("cellNum",
-                  "Next move:",
-                  'ng'),
-      submitButton('Submit move.'),
+      textInput("cellNum", "Enter next move:", 'ng'),
+      actionButton('submitMove','Submit move.'),
+      actionButton('newGame','New Game'),
       actionButton('undoMove','Undo last move.')
     ),
 

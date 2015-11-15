@@ -15,7 +15,7 @@ drawBoard <- function(board)
     scale_fill_manual(labels = ll, values = cc, guide = guide_legend(title = NULL,
                                                                      ncol = 6)) +
     coord_cartesian(xlim = pLim, ylim = pLim) + theme(legend.position = 'bottom')
-#browser()
+
   board <- board[!is.na(board$cellNum),]
   gg <- gg + geom_text(data = board, label = board$cellNum) + 
     labs(x = '', y = '', title = 'Super Tic-Tac-Toe') + 
@@ -59,7 +59,7 @@ drawOriginalBoard <- function()
   board$minBoardWon <- FALSE
   majMat <- matrix(0,nrow = 3, ncol = 3)
   gg <- drawBoard(board)
-  board <- list(board = board, majMat = majMat, nums = c())
+  board <- list(board = board, majMat = majMat, nums = c(), allowUndo = TRUE, winner = '')
   
   return(list(plot = gg, board = board))
 }
