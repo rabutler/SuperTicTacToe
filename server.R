@@ -72,15 +72,6 @@ shinyServer(function(input, output) {
     }
   })
   
-#   undoMove <- eventReactive(isolate(input$undoMove), {
-#     # check to see if undo is possible, since now we only allow one undo
-#     if(board$allowUndo){
-#       return(0)
-#     } else{
-#       return(1)
-#     }
-#   })
-  
   output$board <- renderPlot({
     
     if(is.null(errorCode$data)) return()
