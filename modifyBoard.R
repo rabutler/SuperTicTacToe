@@ -54,5 +54,7 @@ modifyBoard <- function(board, cellNum, player)
   # change number to NA so it no longer appears as available
   board$board$cellNum[ii] <- NA
   
+  # set allow undo to true, because a move has been registered. 
+  board$allowUndo <- TRUE
   board
 }

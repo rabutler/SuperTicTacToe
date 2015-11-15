@@ -46,7 +46,8 @@ shinyServer(function(input, output) {
       
       board$winner <<- winner
       
-      errorCode$data$text <- paste('Las move was:',uI)
+      pp <- ifelse(pp==1, 2, 1)
+      errorCode$data$text <- paste('Last move was:',uI,'  Player',pp,'it is now your turn.')
       
     } else {
       # move is invalid for some reason, so set the error text accordingly
@@ -54,6 +55,23 @@ shinyServer(function(input, output) {
     }
     
   })
+  
+  observeEvent(input$undoMove, {
+    # check if undo is allowed (can only undo once)
+    if(board$allowUndo){
+      # can undo
+      board <<- prevBoard
+      board$allowUndo <<- FALSE
+      # set the message:
+      if(length(board$nums) %% 2 == 0){pp <- 2} else {pp <- 1}
+      errorCode$data$text <- paste('Last move undone. Player', pp, 'it is now your turn')
+    } else{
+      # cannot undo
+      if(length(board$nums) %% 2 == 0){pp <- 2} else {pp <- 1}
+      errorCode$data$text <- paste('Cannot undo move. Player',pp,'it is still your turn.')
+    }
+  })
+  
 #   undoMove <- eventReactive(isolate(input$undoMove), {
 #     # check to see if undo is possible, since now we only allow one undo
 #     if(board$allowUndo){
