@@ -24,7 +24,7 @@ shinyUI(fluidPage(
     # Show a plot of the board
     mainPanel(
       plotOutput("board"),
-      textOutput('message')
+      htmlOutput('message')
     )
   )
 ))

@@ -47,7 +47,7 @@ shinyServer(function(input, output) {
       board$winner <<- winner
       
       pp <- ifelse(pp==1, 2, 1)
-      errorCode$data$text <- paste('Last move was:',uI,'  Player',pp,'it is now your turn.')
+      errorCode$data$text <- paste('Last move was:',uI,'<br/>Player',pp,'it is now your turn.')
       
     } else {
       # move is invalid for some reason, so set the error text accordingly
@@ -90,10 +90,10 @@ shinyServer(function(input, output) {
     
   })
   
-  output$message <- renderText ({
+  output$message <- renderUI ({
     if(is.null(errorCode$data)) return()
     
-    errorCode$data$text
+    HTML(errorCode$data$text)
   })
 
 })
