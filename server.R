@@ -1,19 +1,11 @@
 
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 # *** TO DO:
-# - if you put in a cell number and hit submit before clicking new game, it weirdly 
-#   starts with player 2
 # - change text input to numeric input and get rid of all the as.numerics and error
 #   checking on letters
 # - save output button
 # -- Will have to look into where it is saved. May need to have it emailed to me.
-# - aesthetics
-# - instructions
+# -- If there is a bug, click save output, which will send the board to me for debugging.
+# - Change name to Ultimate
 
 
 library(shiny)
@@ -22,8 +14,11 @@ source('modifyBoard.R')
 source('compFunctions.R')
 
 # Make the board a global variable so that it can always be modified and accessed
-board <<- drawOriginalBoard()$board
-prevBoard <<- board
+#board <<- drawOriginalBoard()$board
+#prevBoard <<- board
+
+board <<- NULL
+prevBoard <<- NULL
 
 shinyServer(function(input, output) {
 
@@ -89,6 +84,7 @@ shinyServer(function(input, output) {
   output$board <- renderPlot({
     
     if(is.null(errorCode$data)) return()
+    if(errorCode$data$code == 9) return()
     
     print(drawBoard(board$board) + annotate('text',label = board$winner, x = 8, y = 8, 
                                                 size = 30))  
