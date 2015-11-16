@@ -10,7 +10,10 @@
 #   starts with player 2
 # - change text input to numeric input and get rid of all the as.numerics and error
 #   checking on letters
-# - do not allow moves once game has been won.
+# - save output button
+# -- Will have to look into where it is saved. May need to have it emailed to me.
+# - aesthetics
+# - instructions
 
 
 library(shiny)

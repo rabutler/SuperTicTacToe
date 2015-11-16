@@ -18,7 +18,7 @@ drawBoard <- function(board)
 
   board <- board[!is.na(board$cellNum),]
   gg <- gg + geom_text(data = board, label = board$cellNum) + 
-    labs(x = '', y = '', title = 'Super Tic-Tac-Toe') + 
+    labs(x = '', y = '', title = '') + 
     theme(axis.ticks = element_blank(), axis.text = element_blank(),
           plot.title = element_text(size = rel(2)))
   gg

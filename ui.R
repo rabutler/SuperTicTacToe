@@ -7,24 +7,30 @@
 
 library(shiny)
 
-shinyUI(fluidPage(
+shinyUI(navbarPage("Super Tic-Tac-Toe",
 
   # Application title
-  titlePanel("Super Tic-Tac-Toe"),
+  tabPanel("Instructions",
+           fluidRow(column(9,includeMarkdown('instructions.md')))
+  ),
 
+  tabPanel('Game',
   # text input of the next move
-  sidebarLayout(
-    sidebarPanel(
-      textInput("cellNum", "Enter next move:", ''),
-      actionButton('submitMove','Submit move.'),
-      actionButton('newGame','New Game'),
-      actionButton('undoMove','Undo last move.')
-    ),
-
-    # Show a plot of the board
-    mainPanel(
-      plotOutput("board"),
-      htmlOutput('message')
+    sidebarLayout(
+      sidebarPanel(
+        textInput("cellNum", "Enter next move:", ''),
+        actionButton('submitMove','Submit Move'),
+        br(),
+        actionButton('undoMove','Undo Last Move'),
+        br(),br(),
+        actionButton('newGame','New Game')
+      ),
+  
+      # Show a plot of the board
+      mainPanel(
+        plotOutput("board"),
+        htmlOutput('message')
+      )
     )
   )
 ))
