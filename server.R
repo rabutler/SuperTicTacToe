@@ -1,10 +1,5 @@
 
 # *** TO DO:
-# - change text input to numeric input and get rid of all the as.numerics and error
-#   checking on letters
-# - save output button
-# -- Will have to look into where it is saved. May need to have it emailed to me.
-# -- If there is a bug, click save output, which will send the board to me for debugging.
 # - Change name to Ultimate
 
 
@@ -14,9 +9,6 @@ source('modifyBoard.R')
 source('compFunctions.R')
 
 # Make the board a global variable so that it can always be modified and accessed
-#board <<- drawOriginalBoard()$board
-#prevBoard <<- board
-
 board <<- NULL
 prevBoard <<- NULL
 
@@ -32,10 +24,10 @@ shinyServer(function(input, output) {
   })
   
   observeEvent(input$submitMove, {
-    errorCode$data$code <- checkUserInput(as.numeric(input$cellNum))
+    errorCode$data$code <- checkUserInput(input$cellNum)
     if(errorCode$data$code == 0){
       # move is valid, so update board accordingly
-      uI <- as.numeric(input$cellNum)
+      uI <- input$cellNum
       prevBoard <<- board
       
       if(length(board$nums) %% 2 == 0){pp <- 2} else {pp <- 1} 
@@ -84,7 +76,7 @@ shinyServer(function(input, output) {
   output$board <- renderPlot({
     
     if(is.null(errorCode$data)) return()
-    if(errorCode$data$code == 9) return()
+    if(errorCode$data$code == 6) return()
     
     print(drawBoard(board$board) + annotate('text',label = board$winner, x = 8, y = 8, 
                                                 size = 30))  

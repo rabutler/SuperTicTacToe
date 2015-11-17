@@ -150,23 +150,18 @@ isAcceptableText <- function(uI)
 checkUserInput <- function(uI)
 {
   
-  # is it a numeric between 1 and 81
-  if(!is.na(uI) & tolower(uI) == 's'){
-    return(5)
-  } else if(!is.na(uI) & tolower(uI) == 'u'){
-    return(6)
-  } else if(!is.na(uI) & tolower(uI) == 'uc'){
-    return(7)
-  } else if(!is.na(uI) & tolower(uI) == 'ng'){
-    return(0)
+  if(!is.numeric(uI)){
+    return(1)
   } else if (is.null(board)){
-    return(9)
+    return(6)
   } else if(board$winner != ''){
-    return(8)
+    return(5)
   } else if(is.na(uI)){
     return(1)
   } else if(uI < 1 | uI > 81){
     return(2)
+  } else if(uI %% 1 != 0){
+    return(7)
   } else if(uI %in% board$nums){
     return(3)
   } else if(moveNotAllowable(board, uI)){
@@ -178,10 +173,11 @@ checkUserInput <- function(uI)
 
 errorMessage <- function(ii)
 {
-  em <- c('Input was not numeric','Input was a number beyond the allowable values',
+  em <- c('Input was not numeric. Please enter a number between 1 and 81.',
+          'Input was a number beyond the allowable values',
           'Cell has already been played', 'Cell is not in correct board',
-          'Board was saved', 'Reverted back to the previous play.',
-          'Undo was cancelled.', 'Game is over. <br/> Select \'New Game\' to play again.',
-          'Please select New Game before submitting a move.')
+          'Game is over. <br/> Select \'New Game\' to play again.',
+          'Please select New Game before submitting a move.',
+          'Input needs to be a whole number.')
   em[ii]
 }

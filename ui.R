@@ -18,7 +18,8 @@ shinyUI(navbarPage("Super Tic-Tac-Toe",
   # text input of the next move
     sidebarLayout(
       sidebarPanel(
-        textInput("cellNum", "Enter next move:", ''),
+        #textInput("cellNum", "Enter next move:", ''),
+        numericInput('cellNum', 'Enter next move:',value = 40, min = 1, max = 81, step = 1),
         actionButton('submitMove','Submit Move'),
         br(),
         actionButton('undoMove','Undo Last Move'),
