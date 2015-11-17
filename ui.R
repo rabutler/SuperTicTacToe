@@ -7,7 +7,7 @@
 
 library(shiny)
 
-shinyUI(navbarPage("Super Tic-Tac-Toe",
+shinyUI(navbarPage("Ultimate Tic-Tac-Toe",
 
   # Application title
   tabPanel("Instructions",

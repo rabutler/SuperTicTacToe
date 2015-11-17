@@ -1,4 +1,4 @@
-## Super Tic-Tac-Toe Instructions
+## Ultimate Tic-Tac-Toe Instructions
 Just like playing 9 different games of regular tic-tac-toe, with several important 
 distinctions. One large tic-tac-toe board is composed of 9 smaller boards. The overall objective is to win 3 small games in a row so that you win the larger game.
 
@@ -17,9 +17,11 @@ the user can try again.
 If the player made a mistake, the "undo" button can be used to go back one move.
 Currently, it is only allowable to undo once.
 
+**Click over to the "Game" tab to begin.**
+
 ## Bugs
 
-If something doesn't seem right to you, or there is an obvious bug please let me know. Please take a screen shot of the board, then head to the [GitHub Issues](https://github.com/rabutler/SuperTicTacToe/issues) page, and describe the last move, and the reason you think it is a bug.
+If something doesn't seem right to you, or there is an obvious bug please let me know. Please take a screen shot of the board, then head to the [GitHub Issues](https://github.com/rabutler/UltimateTicTacToe/issues) page, and describe the last move, and the reason you think it is a bug.
 
 ## Code
-The code is available at http://github.com/rabutler/SuperTicTacToe
+The code is available at http://github.com/rabutler/UltimateTicTacToe

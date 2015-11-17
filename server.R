@@ -1,8 +1,4 @@
 
-# *** TO DO:
-# - Change name to Ultimate
-
-
 library(shiny)
 source('drawBoard.R')
 source('modifyBoard.R')
