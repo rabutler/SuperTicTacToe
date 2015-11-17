@@ -17,5 +17,9 @@ the user can try again.
 If the player made a mistake, the "undo" button can be used to go back one move.
 Currently, it is only allowable to undo once.
 
+## Bugs
+
+If something doesn't seem right to you, or there is an obvious bug please let me know. Please take a screen shot of the board, then head to the [GitHub Issues](https://github.com/rabutler/SuperTicTacToe/issues) page, and describe the last move, and the reason you think it is a bug.
+
 ## Code
 The code is available at http://github.com/rabutler/SuperTicTacToe
