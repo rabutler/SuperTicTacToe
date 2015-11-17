@@ -4,6 +4,7 @@ boardprev.csv
 majMatprev.csv
 numsPlayed.csv
 numsPlayedprev.csv
+backup/*
 
 # R project files
 *.Rproj.user
