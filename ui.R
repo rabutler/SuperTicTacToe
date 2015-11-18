@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+require(markdown)
 
 shinyUI(navbarPage("Ultimate Tic-Tac-Toe",
 
