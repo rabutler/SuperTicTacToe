@@ -2,7 +2,14 @@
 
 An Ultimate tic-tac-toe game, developed in R Shiny, to see if it could be done while working on my Shiny skills.
 
-The game is available at XXX with instructions.
+The game is available at http://ralan.shinyapps.io/UltimateTicTacToe with instructions.
+
+Or you can run the game locally with R with the following:
+```
+require(shiny)
+shiny::runGitHub( "UltimateTicTacToe", "rabutler") 
+
+```
 
 Credit to Skyler for teaching me the game; and to 4 days of not 
 being able to surf and not having internet to distract me in El Paredon, 
